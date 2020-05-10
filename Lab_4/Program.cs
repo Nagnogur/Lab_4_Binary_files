@@ -11,13 +11,14 @@ namespace Lab_4
     {
         static void Main(string[] args)
         {
-            byte[] s = File.ReadAllBytes(@"1.txt");
-            for (int i = 0; i < s.Length; i++)
+            byte[] s = File.ReadAllBytes(@"2.txt");
+            LZW test = new LZW();
+            int[] b = test.Compress(s);
+            for (int i = 0; i < b.Length; i++)
             {
-                Console.Write(s[i]);
+                Console.Write(b[i] + " ");
             }
-            
-                Console.ReadKey();
+            Console.ReadKey();
         }
     }
 }
