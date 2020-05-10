@@ -8,9 +8,10 @@ namespace Lab_4
 {
     class LZW
     {
-        Dictionary<string, int> table = new Dictionary<string, int>();
+        
         public int[] Compress(byte[] input)
         {
+            Dictionary<string, int> table = new Dictionary<string, int>();
             for (int i = 0; i < 256; i++)
             {
                 table.Add(Convert.ToString((char)i), i);
@@ -18,8 +19,8 @@ namespace Lab_4
 
             string s = "" + (char)input[0];
             string c = "";
-            int k = 256;
-            int len = input.Length;
+            int k = 256,
+                len = input.Length;
             List<int> res = new List<int>();
             for (int i = 0; i < len; i++)
             {
@@ -44,7 +45,29 @@ namespace Lab_4
             }
             res.Add(table[s]);
             
-            return res.ToArray();;
+            return res.ToArray();
+        }
+
+        public void Decompress(int[] input)
+        {
+            Dictionary<int, string> table = new Dictionary<int, string>();
+            for (int i = 0; i < 256; i++)
+            {
+                table.Add(i, Convert.ToString((char)i));
+            }
+            
+            int l = input[0];
+            int k = 256, 
+                len = input.Length;
+            List<string> res = new List<string>();
+            string s = table[l],
+                   c = "" + s[0];
+            res.Add(s);
+            for (int i = 0; i < len; i++)
+            {
+                
+            }
+            
         }
     }
 }
