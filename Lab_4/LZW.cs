@@ -48,7 +48,7 @@ namespace Lab_4
             return res.ToArray();
         }
 
-        public void Decompress(int[] input)
+        public string[] Decompress(int[] input)
         {
             Dictionary<int, string> table = new Dictionary<int, string>();
             for (int i = 0; i < 256; i++)
@@ -56,18 +56,33 @@ namespace Lab_4
                 table.Add(i, Convert.ToString((char)i));
             }
             
-            int l = input[0];
-            int k = 256, 
-                len = input.Length;
+            int code = input[0];
+            int k = 256,
+                len = input.Length,
+                next;
             List<string> res = new List<string>();
-            string s = table[l],
-                   c = "" + s[0];
+            string s = table[code], c = "";
             res.Add(s);
-            for (int i = 0; i < len; i++)
+            for (int i = 0; i < len - 1; i++)
             {
-                
+                next = input[i + 1];
+                if (!table.ContainsKey(next))
+                {
+                    s = table[code];
+                    s = s + c;
+                }
+                else
+                {
+                    s = table[next];
+                }
+
+                res.Add(s);
+                c = "" + s[0];
+                table[k] = table[code] + c;
+                k++;
+                code = next;
             }
-            
+            return res.ToArray();
         }
     }
 }

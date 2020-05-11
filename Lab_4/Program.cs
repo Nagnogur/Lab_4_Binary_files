@@ -25,7 +25,23 @@ namespace Lab_4
                     writer.Write(b[i]);
                 }
             }
-            
+
+            string[] dec = test.Decompress(b);
+            List<byte> decompress = new List<byte>();
+            for (int i = 0; i < dec.Length; i++)
+            {
+                for (int j = 0; j < dec[i].Length; j++)
+                {
+                    decompress.Add((byte)dec[i][j]);
+                }
+            }
+            using (BinaryWriter writer = new BinaryWriter(File.Open(@"mouse_dec.bmp", FileMode.Create)))
+            {
+                for (int i = 0; i < decompress.Count; i++)
+                {
+                    writer.Write(decompress[i]);
+                }
+            }
             Console.ReadKey();
         }
     }
