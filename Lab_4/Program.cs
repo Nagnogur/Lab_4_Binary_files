@@ -11,8 +11,26 @@ namespace Lab_4
     {
         static void Main(string[] args)
         {
+            if (Console.ReadLine() == "compress")
+            {
+                int n = Convert.ToInt32(Console.ReadLine());
+                string output = Console.ReadLine();
+                List<string> files = new List<string>();
+                for (int i = 0; i < n; i++)
+                {
+                    files.Add(Console.ReadLine());
+                }
+                LZW archive = new LZW(files, output);
+                archive.Compress();
+            }
+            else
+            {
+                string file = Console.ReadLine();
+                LZW archive = new LZW(file);
+                archive.Decompress();
+            }
 
-            byte[] s = File.ReadAllBytes(@"mouse.bmp");
+            /*byte[] s = File.ReadAllBytes(@"mouse.bmp");
             LZW test = new LZW();
             int[] b = test.Compress(s);
             byte[] bytes = new byte[b.Length * 2];
@@ -55,7 +73,7 @@ namespace Lab_4
                 {
                     writer.Write(decompress[i]);
                 }
-            }
+            }*/
             Console.ReadKey();
         }
     }
