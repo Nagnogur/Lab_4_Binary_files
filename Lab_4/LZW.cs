@@ -34,6 +34,7 @@ namespace Lab_4
                 len[l * 2 + 1] = fileName.Length;
                 l++;
                 bytes.AddRange(fileContent.Concat(fileName).ToArray());
+                File.Delete(@file);
             }
             len[fileCount * 2] = fileCount;
             byte[] input = bytes.ToArray();
@@ -92,7 +93,7 @@ namespace Lab_4
             return res.ToArray();
         }
 
-        public void Decompress()
+        public int Decompress()
         {
             byte[] input = File.ReadAllBytes(@name);
             int len = input.Length;
@@ -153,6 +154,7 @@ namespace Lab_4
                 sum += content[2 * i + 1];
                 
             }
+            return fileNumber;
 
         }
         public string[] Decompress1(int[] input)

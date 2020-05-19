@@ -11,23 +11,31 @@ namespace Lab_4
     {
         static void Main(string[] args)
         {
-            if (Console.ReadLine() == "compress")
+            if (args[0] == "compress")
             {
-                int n = Convert.ToInt32(Console.ReadLine());
-                string output = Console.ReadLine();
+                string output = args[1];
                 List<string> files = new List<string>();
-                for (int i = 0; i < n; i++)
+                for (int i = 2; i < args.Length; i++)
                 {
-                    files.Add(Console.ReadLine());
+                    files.Add(args[i]);
                 }
                 LZW archive = new LZW(files, output);
                 archive.Compress();
+                Console.WriteLine("Result written to " + output);
+            }
+            else if (args[0] == "decompress")
+            {
+                string file = args[1];
+                LZW archive = new LZW(file);
+                int n = archive.Decompress();
+                if (n == 1)
+                    Console.WriteLine("1 file written");
+                if (n > 1)
+                    Console.WriteLine(n.ToString() + " files written");
             }
             else
             {
-                string file = Console.ReadLine();
-                LZW archive = new LZW(file);
-                archive.Decompress();
+                throw new Exception("Invalid input");
             }
 
             /*byte[] s = File.ReadAllBytes(@"mouse.bmp");
@@ -74,7 +82,7 @@ namespace Lab_4
                     writer.Write(decompress[i]);
                 }
             }*/
-            Console.ReadKey();
+            //Console.ReadKey();
         }
     }
 }
